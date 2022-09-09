@@ -127,15 +127,10 @@ def number_to_string(number: Optional[Union[int, float, str]]) -> Tuple:
 
 def _set_name(block: str, indicator: Tuple) -> str:
 
-    string_back = ""
-    if not int(block):
-        return string_back
+    string_back, match = _general_check(block, indicator)
 
-    ## Now check coincidence inside the set variables
-    for array in [EXCEPTIONS, CENTENAS, DECENAS, UNIDADES]:
-        for k, v in array.items():
-            if block == k:
-                return string_back + v + _get_indicator(block, indicator)
+    if match:
+        return string_back
 
     ## Centenas
     check_centenas = str(int(block) - int(block) % 100)
@@ -199,33 +194,15 @@ def _check_by_dict(array: dict, string_back: str, values: str) -> str:
     return string_back
 
 
-print(number_to_string(1))
-print(number_to_string(10))
-print(number_to_string(100))
-print(number_to_string(1000))
-print(number_to_string(10000))
-print(number_to_string(100000))
-print(number_to_string(1000000))
-print(number_to_string(10000000))
-print(number_to_string(100000000))
-print(number_to_string(1000000000))
-print(number_to_string(10000000000))
-print(number_to_string(100000000000))
-print(number_to_string(1000000000000))
-print(number_to_string(10000000000000))
-print(number_to_string(100000000000000))
-print(number_to_string(1000000000000000))
-print(number_to_string(10000000000000000))
-print(number_to_string(100000000000000000))
-print(number_to_string(1000000000000000000))
-print(number_to_string(1000))
-print(number_to_string(1001))
-print(number_to_string(1002))
-print(number_to_string(2000))
-print(number_to_string(20000))
-print(number_to_string(31000))
-print(number_to_string(310000))
-print(number_to_string(1000000))
-# for i in range(10000, 20000):
-#     print(number_to_string(i))
-#     input()
+def _general_check(block: str, indicator: Tuple) -> Tuple:
+    string_back = ""
+    if not int(block):
+        return string_back, True
+
+    ## Now check coincidence inside the set variables
+    for array in [EXCEPTIONS, CENTENAS, DECENAS, UNIDADES]:
+        for k, v in array.items():
+            if block == k:
+                return string_back + v + _get_indicator(block, indicator), True
+
+    return string_back, False
