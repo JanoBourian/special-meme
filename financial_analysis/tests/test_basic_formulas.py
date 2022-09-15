@@ -1,4 +1,4 @@
-from basics.basic_formula import present_to_future
+from financial_analysis.basics.basic_formula import present_to_future
 
 def test_present_to_future():
     assert present_to_future(100, 1, 0.1) == 110.00
