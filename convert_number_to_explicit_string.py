@@ -123,6 +123,7 @@ def number_to_string(number: Optional[Union[int, float, str]]) -> Tuple:
         return (number, text)
     except Exception as e:
         logging.warning(f"ERROR IN NUMBER_TO_STRING {e}")
+        return ("","")
 
 
 def _set_name(block: str, indicator: Tuple) -> str:
